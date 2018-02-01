@@ -22,9 +22,9 @@
 from time import sleep
 import cfWebSocketApiV1 as cfWsApi
 
-api_path = "ws://localhost:8080/ws/v1"
-api_key = "/VJH/V8e1LwoZsVSoG3m9hJ0BWK1yrwjs7NjryLuCS++Hh12ZrMOXos7"  # accessible on your Account page under Settings -> API Keys
-api_secret = "wo22xCZpDGaOFLTHte78/WZtzkF3dXy0cENpY/l0vHceM63unsidsSqWDWWMpIofD5Dfv5z4WX+swpoaWppw3npr"  # accessible on your Account page under Settings -> API Keys
+api_path = "wss://www.cryptofacilities.com/ws/v1"
+api_key = "..."  # accessible on your Account page under Settings -> API Keys
+api_secret = "..."  # accessible on your Account page under Settings -> API Keys
 timeout = 10
 
 
