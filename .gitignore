@@ -101,6 +101,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# CryptoF
 log/
 bin
 develop-eggs
