@@ -42,7 +42,6 @@ def subscribe_api_tester():
     feed = "trade"
     cfWs.subscribe_public(feed, product_ids)
 
-
     # subscribe to book
     feed = "book"
     cfWs.subscribe_public(feed, product_ids)

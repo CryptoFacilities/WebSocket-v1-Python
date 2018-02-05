@@ -135,7 +135,7 @@ class CfWebSocketMethods(object):
                                          on_error=self.__on_error,
                                          )
 
-        self.wst = Thread(target=lambda: self.ws.run_forever())
+        self.wst = Thread(target=lambda: self.ws.run_forever(ping_interval=30))
         self.wst.daemon = True
         self.wst.start()
 
