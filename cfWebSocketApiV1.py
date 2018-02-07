@@ -161,6 +161,7 @@ class CfWebSocketMethods(object):
 
         allow_ws_action = (self.semaphore._value < 1) and \
                           message_json.get("event", "") == "unsubscribed" or \
+                          message_json.get("event", "") == "error" or \
                           "event" not in message_json or message_json["event"] == "challenge"
 
         if allow_ws_action:
