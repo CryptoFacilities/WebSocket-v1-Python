@@ -21,6 +21,14 @@
 
 from time import sleep
 import cfWebSocketApiV1 as cfWsApi
+import util.cfLogging
+
+logger = util.cfLogging.CfLogger.get_logger(" Example ")
+
+
+########################################################################################################################
+# Please insert you API key and secret
+########################################################################################################################
 
 api_path = "wss://www.cryptofacilities.com/ws/v1"
 api_key = "..."  # accessible on your Account page under Settings -> API Keys
@@ -133,7 +141,18 @@ def unsubscribe_api_tester():
     cfWs.unsubscribe_private(feed)
 
 
+logger.info("-----------------------------------------------------------")
+logger.info("****PRESS ANY KEY TO SUBSCRIBE AND START RECEIVING INFO****")
+logger.info("-----------------------------------------------------------")
+input()
+
+# Subscribe
 subscribe_api_tester()
-sleep(5)
+logger.info("-----------------------------------------------------------")
+logger.info("****PRESS ANY KEY TO UNSUBSCRIBE AND EXIT APPLICATION****")
+logger.info("-----------------------------------------------------------")
+input()
+
+# Unsubscribe
 unsubscribe_api_tester()
-sleep(5)
+

@@ -1,5 +1,5 @@
-Crypto Facilities Websocket API
-===============================
+Crypto Facilities Websocket API v1
+==================================
 
 This is a sample web socket application for [Crypto Facilities Ltd](https://www.cryptofacilities.com/), to demonstrate
 the new WS API.
