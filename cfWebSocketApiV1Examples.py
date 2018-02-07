@@ -156,3 +156,6 @@ input()
 # Unsubscribe
 unsubscribe_api_tester()
 
+# Exit
+exit()
+
