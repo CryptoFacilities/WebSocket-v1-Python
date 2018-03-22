@@ -9,7 +9,8 @@ Getting Started
 ---------------
 
 1. Amend the `cfWebSocketApiV1Examples.py` file to enter your api keys
-1. Run the `cfWebSocketApiV1Examples.py` script
+1. Install the required libraries with ```$ pip install -r requirements.txt```
+1. Run the example application with ```$ python cfWebSocketApiV1Examples.py```
 
 Functionality Overview
 ----------------------
