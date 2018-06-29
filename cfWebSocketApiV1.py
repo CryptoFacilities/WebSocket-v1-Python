@@ -27,10 +27,9 @@ import hmac
 import sys
 import websocket
 
-import util.cfLogging
 from time import sleep
 from threading import Thread, Semaphore
-
+from util.cfLogging import CfLogger
 
 class CfWebSocketMethods(object):
     """Crypto Facilities Ltd Web Socket API Connector"""
@@ -38,7 +37,7 @@ class CfWebSocketMethods(object):
     # Special Methods
 
     def __init__(self, base_url, api_key="", api_secret="", timeout=5):
-        self.logger = util.cfLogging.CfLogger.get_logger("cf-ws-api")
+        self.logger = CfLogger.get_logger("cf-ws-api")
         self.base_url = base_url
         self.api_key = api_key
         self.api_secret = api_secret

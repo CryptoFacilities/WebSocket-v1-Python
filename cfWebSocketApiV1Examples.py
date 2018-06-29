@@ -19,11 +19,9 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 # IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-from time import sleep
 import cfWebSocketApiV1 as cfWsApi
-import util.cfLogging
-
-logger = util.cfLogging.CfLogger.get_logger(" Example ")
+import util.cfLogging as cfLog
+logger = cfLog.CfLogger.get_logger(" Example ")
 
 
 ########################################################################################################################
@@ -89,6 +87,10 @@ def subscribe_api_tester():
     feed = "open_orders"
     cfWs.subscribe_private(feed)
 
+    # subscribe to notifications
+    feed = "notifications_auth"
+    cfWs.subscribe_private(feed)
+
 
 def unsubscribe_api_tester():
     """Test the unsubscribe methods"""
@@ -116,7 +118,7 @@ def unsubscribe_api_tester():
 
     ##### private feeds #####
 
-    # unsubscribe to account balances and margis
+    # unsubscribe to account balances and margins
     feed = "account_balances_and_margins"
     cfWs.unsubscribe_private(feed)
 
@@ -138,6 +140,10 @@ def unsubscribe_api_tester():
 
     # unsubscribe to open orders
     feed = "open_orders"
+    cfWs.unsubscribe_private(feed)
+
+    # unsubscribe to notifications
+    feed = "notifications_auth"
     cfWs.unsubscribe_private(feed)
 
 
