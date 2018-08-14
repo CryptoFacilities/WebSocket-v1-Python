@@ -42,7 +42,7 @@ def subscribe_api_tester():
 
     ##### public feeds #####
 
-    product_ids = ["FV_XRPXBT_180615"]
+    product_ids = ["FI_XBTUSD_180928"]
 
     # subscribe to trade
     feed = "trade"
@@ -59,6 +59,10 @@ def subscribe_api_tester():
     # subscribe to ticker lite
     feed = "ticker_lite"
     cfWs.subscribe_public(feed, product_ids)
+
+    # subscribe to heartbeat
+    feed = "heartbeat"
+    cfWs.subscribe_public(feed)
 
 
     ##### private feeds #####
@@ -115,6 +119,9 @@ def unsubscribe_api_tester():
     feed = "ticker_lite"
     cfWs.unsubscribe_public(feed, product_ids)
 
+    # unsubscribe to heartbeat
+    feed = "heartbeat"
+    cfWs.unsubscribe_public(feed)
 
     ##### private feeds #####
 

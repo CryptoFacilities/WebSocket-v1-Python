@@ -56,16 +56,19 @@ class CfWebSocketMethods(object):
         """Subscribe to given feed and product ids"""
 
         if product_ids is None:
-            return
-
-        self.semaphore.acquire(timeout=self.timeout)
-        request_message = {
-            "event": "subscribe",
-            "feed": feed,
-            "product_ids": product_ids
-        }
+            request_message = {
+                "event": "subscribe",
+                "feed": feed
+            }
+        else:
+            request_message = {
+                "event": "subscribe",
+                "feed": feed,
+                "product_ids": product_ids
+            }
 
         self.logger.info("public subscribe to %s", feed)
+        self.semaphore.acquire(timeout=self.timeout)
 
         request_json = json.dumps(request_message)
         self.ws.send(request_json)
@@ -73,18 +76,21 @@ class CfWebSocketMethods(object):
     def unsubscribe_public(self, feed, product_ids=None):
         """UnSubscribe to given feed and product ids"""
 
-        if product_ids is None:
-            return
 
-        self.semaphore.acquire(timeout=self.timeout)
-        request_message = {
-            "event": "unsubscribe",
-            "feed": feed,
-            "product_ids": product_ids
-        }
+        if product_ids is None:
+            request_message = {
+                "event": "unsubscribe",
+                "feed": feed
+            }
+        else:
+            request_message = {
+                "event": "unsubscribe",
+                "feed": feed,
+                "product_ids": product_ids
+            }
 
         self.logger.info("public unsubscribe to %s", feed)
-
+        self.semaphore.acquire(timeout=self.timeout)
         request_json = json.dumps(request_message)
         self.ws.send(request_json)
 
