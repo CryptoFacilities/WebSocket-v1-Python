@@ -42,7 +42,7 @@ def subscribe_api_tester():
 
     ##### public feeds #####
 
-    product_ids = ["FI_XBTUSD_180928"]
+    product_ids = ["PI_XBTUSD"]
 
     # subscribe to trade
     feed = "trade"

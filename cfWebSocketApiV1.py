@@ -28,7 +28,7 @@ import sys
 import websocket
 
 from time import sleep
-from threading import Thread, Semaphore
+from threading import Thread
 from util.cfLogging import CfLogger
 
 class CfWebSocketMethods(object):
@@ -43,7 +43,6 @@ class CfWebSocketMethods(object):
         self.api_secret = api_secret
         self.timeout = timeout
 
-        self.semaphore = Semaphore(value=1)
         self.ws = None
         self.original_challenge = None
         self.signed_challenge = None
@@ -68,7 +67,6 @@ class CfWebSocketMethods(object):
             }
 
         self.logger.info("public subscribe to %s", feed)
-        self.semaphore.acquire(timeout=self.timeout)
 
         request_json = json.dumps(request_message)
         self.ws.send(request_json)
@@ -90,7 +88,6 @@ class CfWebSocketMethods(object):
             }
 
         self.logger.info("public unsubscribe to %s", feed)
-        self.semaphore.acquire(timeout=self.timeout)
         request_json = json.dumps(request_message)
         self.ws.send(request_json)
 
@@ -101,7 +98,6 @@ class CfWebSocketMethods(object):
         if not self.challenge_ready:
             self.__wait_for_challenge_auth()
 
-        self.semaphore.acquire(timeout=self.timeout)
         request_message = {"event": "subscribe",
                            "feed": feed,
                            "api_key": self.api_key,
@@ -119,7 +115,6 @@ class CfWebSocketMethods(object):
         if not self.challenge_ready:
             self.__wait_for_challenge_auth()
 
-        self.semaphore.acquire(timeout=self.timeout)
         request_message = {"event": "unsubscribe",
                            "feed": feed,
                            "api_key": self.api_key,
@@ -164,14 +159,6 @@ class CfWebSocketMethods(object):
         message_json = json.loads(message)
         self.logger.info(message_json)
 
-        allow_ws_action = (self.semaphore._value < 1) and \
-                          message_json.get("event", "") == "unsubscribed" or \
-                          message_json.get("event", "") == "error" or \
-                          "event" not in message_json or message_json["event"] == "challenge"
-
-        if allow_ws_action:
-            self.__make_space_for_action()
-
         if message_json.get("event", "") == "challenge":
                 self.original_challenge = message_json["message"]
                 self.signed_challenge = self.__sign_challenge(self.original_challenge)
@@ -198,7 +185,6 @@ class CfWebSocketMethods(object):
             "api_key": self.api_key
         }
 
-        self.semaphore.acquire(timeout=self.timeout)
         request_json = json.dumps(request_message)
         self.ws.send(request_json)
 
@@ -218,8 +204,4 @@ class CfWebSocketMethods(object):
         # step 5: base64 encode the result of step 4 and return
         sch = base64.b64encode(hmac_digest).decode("utf-8")
         return sch
-
-    def __make_space_for_action(self):
-        if self.semaphore._value < 1:
-            self.semaphore.release()
 
