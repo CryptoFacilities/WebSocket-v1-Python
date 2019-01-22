@@ -36,7 +36,8 @@ class CfWebSocketMethods(object):
 
     # Special Methods
 
-    def __init__(self, base_url, api_key="", api_secret="", timeout=5):
+    def __init__(self, base_url, api_key="", api_secret="", timeout=5, trace=False):
+        websocket.enableTrace(trace)
         self.logger = CfLogger.get_logger("cf-ws-api")
         self.base_url = base_url
         self.api_key = api_key
@@ -149,10 +150,10 @@ class CfWebSocketMethods(object):
             self.logger.info("Couldn't connect to", self.base_url, "! Exiting.")
             sys.exit(1)
 
-    def __on_open(self, conn):
+    def __on_open(self):
         self.logger.info("Connected to %s", self.base_url)
 
-    def __on_message(self, conn, message):
+    def __on_message(self, message):
         """Listen the web socket connection. Block until a message
         arrives. """
 
@@ -164,10 +165,10 @@ class CfWebSocketMethods(object):
                 self.signed_challenge = self.__sign_challenge(self.original_challenge)
                 self.challenge_ready = True
 
-    def __on_close(self, conn):
+    def __on_close(self):
         self.logger.info('Connection closed')
 
-    def __on_error(self, conn, error):
+    def __on_error(self, error):
         self.logger.info(error)
 
     def __wait_for_challenge_auth(self):

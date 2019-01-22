@@ -32,9 +32,9 @@ api_path = "wss://www.cryptofacilities.com/ws/v1"
 api_key = "..."  # accessible on your Account page under Settings -> API Keys
 api_secret = "..."  # accessible on your Account page under Settings -> API Keys
 timeout = 10
+trace = False  # set to True for connection verbose logging
 
-
-cfWs = cfWsApi.CfWebSocketMethods(base_url=api_path, api_key=api_key, api_secret=api_secret, timeout=10)
+cfWs = cfWsApi.CfWebSocketMethods(base_url=api_path, api_key=api_key, api_secret=api_secret, timeout=10, trace=trace)
 
 
 def subscribe_api_tester():
